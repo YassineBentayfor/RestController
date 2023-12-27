@@ -1,0 +1,18 @@
+    @PostMapping("/examen/{matricule}")
+    public Student studentExamen(final Model model, @ModelAttribute List<Student> students, @PathVariable Long matricule){
+        Student s = studentRepository.findById(matricule).get();
+        students.add(s);
+        model.addAttribute("examen", students);
+        return s;
+    }
+
+    @GetMapping(value = "/studentpassexamen")
+    public List<Student> studentsExamen(Model model, @SessionAttribute("sessionExamen") List<Student> students){
+        return students;
+    }
+
+
+    @ModelAttribute("sessionExamen")
+    public List<Student> sessionExamen() {
+        return new ArrayList<>();
+    }
